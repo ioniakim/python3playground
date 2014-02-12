@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-class adder:
+class Adder:
     def __init__(self, value=0):
         self.data = value
 
@@ -8,7 +8,15 @@ class adder:
         self.data += other
 
 
+class Addrepr(Adder):
+    def __repr__(self):
+        return 'Addrepr(%s)' % self.data
+
 
 if __name__ == '__main__':
-    x = adder()
+    x = Adder()
+    print(x)
+
+    x = Addrepr(2)
+    x + 1
     print(x)
