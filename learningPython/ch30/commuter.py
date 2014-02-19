@@ -47,6 +47,21 @@ class Commuter4:
         return self.val + other
     __radd__ = __add__
 
+class Commuter5:
+    """
+    Propagate class type in results
+    """
+    def __init__(self, val):
+        self.val = val
+    def __add__(self, other):
+        if isinstance(other, Commuter4):
+            other = other.val
+        return Commuter5(self.val + other)
+    def __radd__(self, other):
+        return Commuter5(other + self.val)
+    def __str__(self):
+        return '<Commuter5: %s>' % self.val
+
 
 if __name__ == '__main__':
     x = Commuter1(88)
@@ -82,3 +97,15 @@ if __name__ == '__main__':
     print(x + 1)  # __add__: instance + noninstance
     print(1 + y)  # __radd__: noninstance + instance
     print(x + y)  # __add__: instance + instance, triggers __radd__
+
+    print('-' * 10)
+
+    x = Commuter5(88)
+    y = Commuter5(99)
+    print(x + 10)
+    print(10 + y)
+    z = x + y
+    print(z)
+    print(z + 10)
+    print(z + z)
+    print(z + z + 1)
